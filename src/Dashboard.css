@@ -1,0 +1,35 @@
+.dashboard {
+  flex:1;
+  
+  border:2px solid blueviolet;
+}
+
+#example {
+  font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+#example td,
+#example th {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+#example tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+#example tr:hover {
+  background-color: #ddd;
+}
+
+#example th {
+  padding-top: 11px;
+  padding-bottom: 11px;
+  background-color: #828682;
+  color: white;
+}
+#example {
+  text-align: center;
+}
