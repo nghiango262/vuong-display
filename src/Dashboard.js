@@ -1,10 +1,24 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
+import RowTable from "./RowTable";
 import "./Dashboard.css";
+//import data from "./data";
 //import moment from "moment"
 import { calDay } from "./utils/dateUtils";
 
-const Dashboard = ({ datas }) => {
-
+const Dashboard = () => {
+  const [datas, setDatas] = useState([]);
+  useEffect(() => {
+    //
+    const getAllProjects = async () => {
+      await fetch("http://localhost:1337/v1/project/public/all")
+      .then((response) => response.json())
+      .then((result) => setDatas(result.data))
+      .catch((error) => console.error(error));
+    }
+    getAllProjects();
+      
+      
+  }, [])
   
   const strDate = "2020-09-10";
 
@@ -35,21 +49,36 @@ const Dashboard = ({ datas }) => {
           </tr>
         </thead>
         <tbody>
-          {datas.map((data, index) => (
-            <tr key={index}>
-              <td>{data.maDuAn}</td>
-              <td>{data.tenSanPham}</td>
-              <td>{data.soLuong}</td>
-              <td bgcolor="#00FF00">{data.trienKhaiHsKyt}</td>
-              <td bgcolor="#FF0000">{data.nvlChinh}</td>
-              <td>{data.giaCongTp}</td>
-              <td>{data.coKhi}</td>
-              <td>{data.mocMay}</td>
-              <td>{data.soFa}</td>
-              <td>{data.hoanThien}</td>
-              <td>{data.dongGoi}</td>
-              <td>{data.xuatHangDK}</td>
-              <td>{data.xuatHangTT}</td>
+          {datas.map(({
+            maDuAn,
+            tenSanPham,
+            soLuong,
+            trienKhaiHsKyt,
+            nvlChinh,
+            giaCongTp,
+            coKhi,
+            mocMay,
+            soFa,
+            hoanThien,
+            dongGoi,
+            xuatHangDK,
+            xuatHangTT,
+          }) => (
+            <tr key={maDuAn}>
+              <RowTable label={maDuAn} />
+              <RowTable label={tenSanPham} />
+              <RowTable label={soLuong} />
+              <RowTable label={trienKhaiHsKyt.endDate} bgColor={trienKhaiHsKyt.bgColor} />
+              <RowTable label={nvlChinh.endDate} bgColor={nvlChinh.bgColor} />
+              
+              <td>{giaCongTp? giaCongTp.endDate : ''}</td>
+              <td>{coKhi}</td>
+              <td>{mocMay}</td>
+              <td>{soFa}</td>
+              <td>{hoanThien}</td>
+              <td>{dongGoi}</td>
+              <td>{xuatHangDK}</td>
+              <td>{xuatHangTT}</td>
             </tr>
           ))}
         </tbody>
